@@ -7,5 +7,8 @@ def dfs(Adj, s, parent = None, order = None):
         if parent[v] is None:
             parent[v] = s
             dfs(Adj, v, parent, order)
+        if parent[v] != s:
+            print(v, s)
+            print("cycle detect!!")
     order.append(s)
     return parent, order
