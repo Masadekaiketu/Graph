@@ -1,3 +1,4 @@
+from shutil import ExecError
 from DFS import dfs
 
 
@@ -19,6 +20,23 @@ def DAG_Relaxation(Adj, w, s):
         for v in Adj[u]:
             try_to_relax(Adj, w, d, parent, u, v)
     return d, parent
+
+def bellman_ford(Adj, w, s):
+    infinity = float("inf")
+    d = [infinity for _ in Adj]
+    parent = [None for _ in Adj]
+    d[s], parent[s] = 0, s
+    V = len(Adj)
+    for k in range(V - 1):
+        for u in range(V):
+            for v in Adj[u]:
+                try_to_relax(Adj, w, d, parent, u, v)
+    for u in range(V):
+        for v in Adj[u]:
+            if d[v] > d[u] + w(u, v):
+                raise Exception('Ack! There is a negative weight cycle')
+    return d, parent
+
 W ={0: {1: 4},
     1: {2: 3},
     2: {3: 2},
@@ -31,4 +49,3 @@ Adj =  [[1],
         [4, 5],
         [5],
         []]
-print(DAG_Relaxation(Adj, w, 0))
