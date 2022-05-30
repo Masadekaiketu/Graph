@@ -5,9 +5,7 @@ def full_dfs(Adj):
     for v in range(len(Adj)):
         if parent[v] is None:
             parent[v] = v
-            order_sub = []
-            dfs(Adj, v, parent, order_sub) #each connected component is stored in order as list
-            order.append(order_sub) #len(order) is the number of connected component
+            dfs(Adj, v, parent, order) #each connected component is stored in order as list #len(order) is the number of connected component
     return parent, order
 
 Adj =  [[1],
